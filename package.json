@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@unocss/reset": "^66.2.3",
     "axios": "^1.10.0",
+    "eslint-plugin-json": "^4.0.1",
     "react": "19.1.0",
     "react-cookie": "^8.0.1",
     "react-dom": "19.1.0",
@@ -19,13 +20,23 @@
     "react-router-dom": "7.6.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.27.5",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.29.0",
     "@vitejs/plugin-react-swc": "3.10.2",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.2.0",
+    "prettier": "^3.2.5",
     "vite": "6.3.5"
   },
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "lint": "eslint .",
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'"
   },
   "browserslist": {
     "production": [
