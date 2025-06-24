@@ -15,6 +15,7 @@ export const Router = () => {
   // 「store」からログイン中かどうかを受け取る
   // useSelector: 「store」のデータから必要なものを受け取る関数？
   // (state) には全体のデータが入る
+  // state.auth.token: アクセストークン
   const auth = useSelector((state) => state.auth.token !== null);
 
   return (
@@ -27,7 +28,7 @@ export const Router = () => {
         <Routes>
           {/* サインイン画面 */}
           <Route path="/signin" element={<SignIn />} replace />
-          {/* サインアウト画面 */}
+          {/* サインアップ画面 */}
           <Route path="/signup" element={<SignUp />} />
 
           {/* ログイン中なら */}
@@ -48,7 +49,7 @@ export const Router = () => {
               <Route path="/lists/:listId/edit" element={<EditList />} />
             </>
           ) : (
-            // ログイン中ではなく、「/」に来たら
+            // ログイン中ではないのに、「/」に来たら
             // サインイン画面 (履歴無し)
             <Route path="/" element={<Navigate to="/signin" replace />} />
           )}

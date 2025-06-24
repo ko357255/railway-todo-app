@@ -8,34 +8,39 @@ import { useId } from "~/hooks/useId";
 const SignUp = () => {
   const auth = useSelector((state) => state.auth.token !== null);
 
-  const id = useId();
+  const id = useId(); // ランダムなID
   const [errorMessage, setErrorMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // ボタンを押下しているかどうか
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signup } = useSignup();
+  const { signup } = useSignup(); // サインアップ関数を作る
 
+  // フォームの送信イベント
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
 
-      setIsSubmitting(true);
+      setIsSubmitting(true); // ボタン押下 true
 
+      // サインアップ処理
       signup({ email, name, password })
         .catch((err) => {
           setErrorMessage(`サインアップに失敗しました: ${err.message}`);
         })
         .finally(() => {
-          setIsSubmitting(false);
+          setIsSubmitting(false); // ボタン押下 false
         });
     },
-    [email, name, password],
+    // email,name,passwordが変わるたびに
+    // 再定義する
+    [email, name, password]
   );
 
   if (auth) {
+    // ログイン中ならトップページへ遷移
     return <Navigate to="/" />;
   }
 
@@ -93,6 +98,7 @@ const SignUp = () => {
             Login
           </Link>
           <div className="signup__form_actions_spacer"></div>
+          {/* ボタン押下中は送信不可にする */}
           <button type="submit" className="app_button" disabled={isSubmitting}>
             Register
           </button>
