@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/index";
 import axios from "~/vendor/axios";
 
-// サーバーにリクエストが送られたとき
+// axiosでサーバーにリクエストが送られたとき（GETとかPOSTとか）
 axios.interceptors.request.use((config) => {
   // 「store」のデータから、アクセストークン(証明書みたいな)を取得
   const token = store.getState().auth.token;

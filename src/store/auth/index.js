@@ -57,20 +57,39 @@ export const fetchUser = createAsyncThunk(
   },
 );
 
+// loginのthunk関数
 export const login = createAsyncThunk(
+  // createAsyncThunk(): 非同期のthunk関数を作る
+
   "auth/login",
   async (payload, thunkApi) => {
+    // payload: 関数(login)が受け取る関数 login({email, password})
+    // thunkAPI: Reduxとやり取りするやつ
+
     try {
+      // 渡された引数から、email,passowrd を取り出す
       const { email, password } = payload;
+
+      // サインインAPI、アクセストークンを返す
+      // サーバーを通信する（fetachみたいなもん）
+      // fetachとの違い: 勝手にjsonにしてくれる、エラー処理が簡単
+      // index.jsx でaxiosリクエストに認証情報を付与してるから、fetach()だとダメ
       const response = await axios.post(`/signin`, {
+        // リクエストボディ
         email,
         password,
       });
 
+      // ローカルストレージに、貰ったトークンを保管する
       localStorage.setItem("railway-todo-app__token", response.data.token);
+      
+      // dispatch(action)でstoreにトークンを保存する
       thunkApi.dispatch(setToken(response.data.token));
+
+      // ついでにログインユーザーもstoreに保存する
       void thunkApi.dispatch(fetchUser());
-    } catch (e) {
+    } catch (e) { // エラーの時の処理
+      // チャンクエラーを返す
       return handleThunkError(e, thunkApi);
     }
   },

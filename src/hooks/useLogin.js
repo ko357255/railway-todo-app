@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { login } from "~/store/auth";
 
 // ログイン関数を作る関数
+// ↑ ログイン関数を直接返さないのは、依存関係に基づいて再定義したいから？
+// ↑ useCallback() で包むことで、再定義を繰り返さないようにしている
 export const useLogin = () => {
-  // Reduxにデータを送る関数
+  // dispatch関数を作る
   const dispatch = useDispatch();
   // ページ遷移関数
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ export const useLogin = () => {
     async ({ email, password }) => {
       // await: 非同期で待つ
       await dispatch(
+        // redux-chunkでやるdispatch()
         login({
           email,
           password,
