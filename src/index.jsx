@@ -1,24 +1,24 @@
-import React, { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App'
-import { Provider } from 'react-redux'
-import { store } from './store/index'
-import axios from '~/vendor/axios'
+import React, { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./store/index";
+import axios from "~/vendor/axios";
 
-axios.interceptors.request.use(config => {
-  const token = store.getState().auth.token
+axios.interceptors.request.use((config) => {
+  const token = store.getState().auth.token;
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
-  return config
-})
+  return config;
+});
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>
-)
+  </StrictMode>,
+);

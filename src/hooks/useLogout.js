@@ -1,18 +1,18 @@
-import { useDispatch } from 'react-redux'
-import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { logout } from '~/store/auth'
+import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "~/store/auth";
 
 export const useLogout = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = useCallback(async () => {
-    await dispatch(logout()).unwrap()
-    navigate.push('/signin')
-  }, [useDispatch])
+    await dispatch(logout()).unwrap();
+    navigate.push("/signin");
+  }, [useDispatch]);
 
   return {
     logout: handleLogout,
-  }
-}
+  };
+};

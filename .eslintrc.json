@@ -1,34 +1,27 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "prettier"
-    ],
-    "plugins": [
-        "react",
-        "json"
-    ],
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
-    "env": {
-        "browser": true // ブラウザ環境を指定
-    },
-    "globals": {
-        "localStorage": "readonly" // localStorageを読み取り専用のグローバル変数として認識
-    },
-    "rules": {
-        "no-console": "error",
-        "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off"
-    },
-    "ignorePatterns": [
-        "src/components/digital-agency/**/*",
-        "package.json",
-        "package-lock.json",
-        ".eslintrc.json",
-        "src/components/HTMLComponentWithScript.jsx"
-    ]
+  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  "plugins": ["react", "json"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "browser": true // ブラウザ環境を指定
+  },
+  "globals": {
+    "localStorage": "readonly" // localStorageを読み取り専用のグローバル変数として認識
+  },
+  "rules": {
+    "no-console": "error",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "ignorePatterns": [
+    "src/components/digital-agency/**/*",
+    "package.json",
+    "package-lock.json",
+    ".eslintrc.json",
+    "src/components/HTMLComponentWithScript.jsx"
+  ]
 }
