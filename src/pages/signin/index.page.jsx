@@ -7,14 +7,18 @@ import "./index.css";
 
 const SignIn = () => {
   const auth = useSelector((state) => state.auth.token !== null);
+  // ログイン処理を行う関数
   const { login } = useLogin();
 
+  // ランダムなID
   const id = useId();
+  // エラーメッセージ
   const [errorMessage, setErrorMessage] = useState("");
+  // ボタンを押しているかどうか
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); // メルアド
+  const [password, setPassword] = useState(""); // パスワード
 
   const onSubmit = useCallback(
     (event) => {
