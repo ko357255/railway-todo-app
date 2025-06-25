@@ -42,7 +42,7 @@ const SignIn = () => {
           setIsSubmitting(false); // ボタン押下 false
         });
     },
-    [email, password] // email,passwordの変化で関数を再定義する
+    [email, password], // email,passwordの変化で関数を再定義する
   );
 
   // ログイン中なら
@@ -63,7 +63,6 @@ const SignIn = () => {
             E-mail Address
           </label>
           <input
-
             id={`${id}-email`}
             type="email"
             autoComplete="email"

@@ -4,6 +4,7 @@ import { handleThunkError } from "~/utils/handleThunkError";
 import { resetTask } from "~/store/task";
 import { resetList } from "~/store/list";
 
+// state の初期状態を定義
 const initialState = {
   // NOTE: localStorageから直接取得している。SSR時にはこのままでは動かないので注意
   token: localStorage.getItem("railway-todo-app__token") || null,
@@ -12,46 +13,70 @@ const initialState = {
   isLoading: false,
 };
 
+// authのスライスを定義
+// スライス: 状態(state) と 変化を起こす (reducer) をひとまとめにしたもの
 export const authSlice = createSlice({
-  name: "auth",
-  initialState,
+  name: "auth", // action名 { type: 'auth/〇〇 '} になる
+  initialState, // 初期状態
+  // 状態変化を起こす関数
   reducers: {
+    // isLoading を受け取った値に変更する
+    // 例) { type: 'auth/setUserIsLoading' payload: true }
     setUserIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    // token を受け取った値に変更する
     setToken: (state, action) => {
       state.token = action.payload;
     },
+    // user を受け取った値に変更する
     setUser: (state, action) => {
       state.user = action.payload;
     },
   },
 });
 
+// スライスを元に、関数を定義
+// authSlice.actions には reducers で定義した関数に対応する、
+// アクションクリエイター関数が入っている
 export const { setToken, setUserIsLoading, setUser } = authSlice.actions;
 
+// ログインユーザーをstoreにセットするchunk関数
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
+  // force: ログインデータが既にあっても、取得するかどうか？
+
   async ({ force = false } = {}, thunkApi) => {
+    // ログインデータを取得中かどうか
     const isLoading = thunkApi.getState().auth.isLoading;
+    // ログインデータが既にあるかどうか
     const hasUser = thunkApi.getState().auth.user !== null;
 
+    // データ取得中 または ログインデータ取得済み なら
     if (!force && (isLoading || hasUser)) {
+      // 処理を終わる
       return;
     }
 
+    // ログイン中ではないなら
     if (thunkApi.getState().auth.token === null) {
+      // 処理を終わる
       return;
     }
 
+    // ローディングをtrueにする
     thunkApi.dispatch(setUserIsLoading(true));
 
     try {
+      // ユーザーのデータを取得（※App.jsxで認証情報を付加して）
       const response = await axios.get(`/users`);
+      // ログインデータをreduxに渡す
       thunkApi.dispatch(setUser(response.data));
     } catch (e) {
+      // エラー
       return handleThunkError(e, thunkApi);
     } finally {
+      // 処理が終わったら、ローディングをfalseに
       thunkApi.dispatch(setUserIsLoading(false));
     }
   },
@@ -61,7 +86,7 @@ export const fetchUser = createAsyncThunk(
 export const login = createAsyncThunk(
   // createAsyncThunk(): 非同期のthunk関数を作る
 
-  "auth/login",
+  "auth/login", // action.typeの値
   async (payload, thunkApi) => {
     // payload: 関数(login)が受け取る関数 login({email, password})
     // thunkAPI: Reduxとやり取りするやつ
@@ -82,13 +107,14 @@ export const login = createAsyncThunk(
 
       // ローカルストレージに、貰ったトークンを保管する
       localStorage.setItem("railway-todo-app__token", response.data.token);
-      
+
       // dispatch(action)でstoreにトークンを保存する
       thunkApi.dispatch(setToken(response.data.token));
 
       // ついでにログインユーザーもstoreに保存する
       void thunkApi.dispatch(fetchUser());
-    } catch (e) { // エラーの時の処理
+    } catch (e) {
+      // エラーの時の処理
       // チャンクエラーを返す
       return handleThunkError(e, thunkApi);
     }

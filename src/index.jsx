@@ -24,7 +24,6 @@ axios.interceptors.request.use((config) => {
 // Provider(redux) = 状態管理、propsでデータを渡さずにどこでも共有できるみたいな?
 // 「store」はメモリ上のオブジェクトで、ブラウザを閉じると消える
 
-
 // axios = サーバーとの通信ツール、リクエストを送る前に共通の処理を作ったりできる
 
 createRoot(document.getElementById("root")).render(

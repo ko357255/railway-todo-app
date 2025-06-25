@@ -36,7 +36,7 @@ const SignUp = () => {
     },
     // email,name,passwordが変わるたびに
     // 再定義する
-    [email, name, password]
+    [email, name, password],
   );
 
   if (auth) {

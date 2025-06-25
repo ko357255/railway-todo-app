@@ -18,12 +18,11 @@ export const useLogin = () => {
     async ({ email, password }) => {
       // await: 非同期で待つ
       await dispatch(
-        // redux-chunkでやるdispatch()
+        // ログインのchunk関数を渡す
         login({
           email,
           password,
         }),
-
       ).unwrap(); // エラーならエラーで返すようにする
 
       // トップページに遷移する

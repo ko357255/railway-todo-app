@@ -20,7 +20,7 @@ export const Router = () => {
 
   return (
     <BrowserRouter>
-    {/* BrowserRouter の中では Routeで切り替えれるようになる */}
+      {/* BrowserRouter の中では Routeで切り替えれるようになる */}
       {/* サイドバー (共通部分) */}
       <Sidebar />
       <div className="main_content">

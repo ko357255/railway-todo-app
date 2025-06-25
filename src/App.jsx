@@ -24,7 +24,7 @@ function App() {
     // fetchUser(): ログイン中のユーザーのデータを取得し、dispatchに渡す
 
     // 普通の使い方の場合: dispatch(action): action を渡してデータを変更する
-    // 非同期処理(API)の場合: dispatch(async(dispatch) =>{}): APIが取れてから action を渡してデータを変更する 
+    // 非同期処理(API)の場合: dispatch(async(dispatch) =>{}): APIが取れてから action を渡してデータを変更する
     void dispatch(fetchUser());
   }, []);
 
