@@ -20,6 +20,9 @@ export const authSlice = createSlice({
   initialState, // 初期状態
   // 状態変化を起こす関数
   reducers: {
+    // reduce関数
+    // func(state: storeの状態が入る, action: アクションが入る)
+
     // isLoading を受け取った値に変更する
     // 例) { type: 'auth/setUserIsLoading' payload: true }
     setUserIsLoading: (state, action) => {
@@ -37,15 +40,28 @@ export const authSlice = createSlice({
 });
 
 // スライスを元に、関数を定義
-// authSlice.actions には reducers で定義した関数に対応する、
+// authSlice.actions には reducers で定義した関数に対応する
 // アクションクリエイター関数が入っている
 export const { setToken, setUserIsLoading, setUser } = authSlice.actions;
 
-// ログインユーザーをstoreにセットするchunk関数
-export const fetchUser = createAsyncThunk(
-  "auth/fetchUser",
-  // force: ログインデータが既にあっても、取得するかどうか？
+// アクションクリエイター関数はこんな風に使える
+// dispatch(func(payload));
 
+
+// ログインユーザーをstoreにセットするchunk関数
+// createAsyncThunk: アクションクリエイター
+export const fetchUser = createAsyncThunk(
+  "auth/fetchUser", // action名
+  // ↑をもとに、３つのアクションを作ってくれる
+  // そのActionは、スライサーのextraReducersで受け取る
+  // auth/fetchUser/pending 始まった時
+  // auth/fetchUser/fulfilled 成功してreturnしたとき
+  // auth/fetchUser/rejected エラーになった時
+  // だけど、今回は利用してない？
+  // createAsyncThunkを使う意味ある？
+
+
+  // force: ログインデータが既にあっても、取得するかどうか？
   async ({ force = false } = {}, thunkApi) => {
     // ログインデータを取得中かどうか
     const isLoading = thunkApi.getState().auth.isLoading;
@@ -121,8 +137,9 @@ export const login = createAsyncThunk(
   },
 );
 
+// サインアップ
 export const signup = createAsyncThunk(
-  "auth/signup",
+  "auth/signup", // action名 'auth/signup/〇〇'
   async (payload, thunkApi) => {
     try {
       const { email, password, name } = payload;

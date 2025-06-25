@@ -9,8 +9,10 @@ import { fetchLists } from "~/store/list/index";
 
 export const Sidebar = () => {
   const dispatch = useDispatch();
+  // 現在のパスを受け取る
   const { pathname } = useLocation();
 
+  // storeからいろいろ取得
   const lists = useSelector((state) => state.list.lists);
   const activeId = useSelector((state) => state.list.current);
   const isLoggedIn = useSelector((state) => state.auth.token !== null);
@@ -27,12 +29,13 @@ export const Sidebar = () => {
 
   return (
     <div className="sidebar">
+      {/* トップページのリンク */}
       <Link to="/">
         <h1 className="sidebar__title">Todos</h1>
       </Link>
-      {isLoggedIn ? (
+      {isLoggedIn ? ( // ログイン中なら
         <>
-          {lists && (
+          {lists && ( // lists があるなら
             <div className="sidebar__lists">
               <h2 className="sidebar__lists_title">Lists</h2>
               <ul className="sidebar__lists_items">
@@ -69,7 +72,7 @@ export const Sidebar = () => {
             </button>
           </div>
         </>
-      ) : (
+      ) : ( // ログイン中ではないなら
         <>
           <Link to="/signin" className="sidebar__login">
             Login
