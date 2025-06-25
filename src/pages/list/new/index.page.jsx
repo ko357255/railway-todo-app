@@ -26,7 +26,7 @@ const NewList = () => {
         .unwrap()
         .then((listId) => {
           dispatch(setCurrentList(listId));
-          navigate.push(`/`);
+          navigate(`/`);
         })
         .catch((err) => {
           setErrorMessage(err.message);

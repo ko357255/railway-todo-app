@@ -26,7 +26,7 @@ export const useLogin = () => {
       ).unwrap(); // エラーならエラーで返すようにする
 
       // トップページに遷移する
-      navigate.push("/");
+      navigate("/");
     },
     [useDispatch], // Reduxの度に再定義
   );

@@ -41,7 +41,7 @@ const EditList = () => {
       void dispatch(updateList({ id: listId, title }))
         .unwrap()
         .then(() => {
-          navigate.push(`/lists/${listId}`);
+          navigate(`/lists/${listId}`);
         })
         .catch((err) => {
           setErrorMessage(err.message);
@@ -63,7 +63,7 @@ const EditList = () => {
     void dispatch(deleteList({ id: listId }))
       .unwrap()
       .then(() => {
-        navigate.push(`/`);
+        navigate(`/`);
       })
       .catch((err) => {
         setErrorMessage(err.message);

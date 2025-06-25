@@ -47,7 +47,7 @@ const EditTask = () => {
       void dispatch(updateTask({ id: taskId, title, detail, done }))
         .unwrap()
         .then(() => {
-          navigate.push(`/lists/${listId}`);
+          navigate(`/lists/${listId}`);
         })
         .catch((err) => {
           setErrorMessage(err.message);
@@ -69,7 +69,7 @@ const EditTask = () => {
     void dispatch(deleteTask({ id: taskId }))
       .unwrap()
       .then(() => {
-        navigate.push(`/`);
+        navigate(`/`);
       })
       .catch((err) => {
         setErrorMessage(err.message);

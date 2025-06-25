@@ -16,7 +16,7 @@ export const useSignup = () => {
           name,
         }),
       ).unwrap();
-      navigate.push("/");
+      navigate("/");
     },
     [useDispatch],
   );

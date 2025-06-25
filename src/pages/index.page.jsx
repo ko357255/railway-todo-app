@@ -15,7 +15,7 @@ const Home = () => {
 
   useEffect(() => {
     if (currentListId) {
-      navigate.push(`/lists/${currentListId}`);
+      navigate(`/lists/${currentListId}`);
     }
   }, [currentListId]);
 

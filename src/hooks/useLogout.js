@@ -9,7 +9,7 @@ export const useLogout = () => {
 
   const handleLogout = useCallback(async () => {
     await dispatch(logout()).unwrap();
-    navigate.push("/signin");
+    navigate("/signin");
   }, [useDispatch]);
 
   return {
