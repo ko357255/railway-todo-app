@@ -1,10 +1,10 @@
-import { useCallback, useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { BackButton } from "~/components/BackButton";
-import "./index.css";
-import { fetchLists, updateList, deleteList } from "~/store/list";
-import { useId } from "~/hooks/useId";
+import { useCallback, useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { BackButton } from '~/components/BackButton';
+import './index.css';
+import { fetchLists, updateList, deleteList } from '~/store/list';
+import { useId } from '~/hooks/useId';
 
 const EditList = () => {
   const id = useId();
@@ -13,9 +13,9 @@ const EditList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const list = useSelector((state) =>
@@ -54,7 +54,7 @@ const EditList = () => {
   );
 
   const handleDelete = useCallback(() => {
-    if (!window.confirm("Are you sure you want to delete this list?")) {
+    if (!window.confirm('Are you sure you want to delete this list?')) {
       // キャンセルされたら処理を終わる
       return;
     }

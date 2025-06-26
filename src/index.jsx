@@ -1,10 +1,10 @@
-import React, { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import { Provider } from "react-redux";
-import { store } from "./store/index";
-import axios from "~/vendor/axios";
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './store/index';
+import axios from '~/vendor/axios';
 
 // axiosでサーバーにリクエストを送ったとき（GETとかPOSTとか）
 axios.interceptors.request.use((config) => {
@@ -26,7 +26,7 @@ axios.interceptors.request.use((config) => {
 
 // axios = サーバーとの通信ツール、リクエストを送る前に共通の処理を作ったりできる
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* アプリ全体に「store」の情報を渡す（これでどこでも使える） */}
     <Provider store={store}>

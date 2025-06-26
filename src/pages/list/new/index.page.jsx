@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { BackButton } from "~/components/BackButton";
-import "./index.css";
-import { createList, setCurrentList } from "~/store/list/index";
-import { useId } from "~/hooks/useId";
+import React, { useCallback, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { BackButton } from '~/components/BackButton';
+import './index.css';
+import { createList, setCurrentList } from '~/store/list/index';
+import { useId } from '~/hooks/useId';
 
 const NewList = () => {
   const id = useId();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = useCallback(

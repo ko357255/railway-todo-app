@@ -1,9 +1,9 @@
-import React, { useCallback, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useLogin } from "~/hooks/useLogin";
-import { useId } from "~/hooks/useId";
-import "./index.css";
+import React, { useCallback, useState } from 'react';
+import { Navigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLogin } from '~/hooks/useLogin';
+import { useId } from '~/hooks/useId';
+import './index.css';
 
 const SignIn = () => {
   // ログイン中かどうか
@@ -16,12 +16,12 @@ const SignIn = () => {
   // ↑このコンポーネントを複数置いても、idが被らないようにできる
   const id = useId();
   // エラーメッセージ
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   // ボタンを押しているかどうか
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [email, setEmail] = useState(""); // メルアド
-  const [password, setPassword] = useState(""); // パスワード
+  const [email, setEmail] = useState(''); // メルアド
+  const [password, setPassword] = useState(''); // パスワード
 
   // フォームのボタンを押したときの処理
   const onSubmit = useCallback(

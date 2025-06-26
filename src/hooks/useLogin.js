@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
-import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { login } from "~/store/auth";
+import { useDispatch } from 'react-redux';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '~/store/auth';
 
 // ログイン関数を作る関数
 // ↑ ログイン関数を直接返さないのは、依存関係に基づいて再定義したいから？
@@ -26,7 +26,7 @@ export const useLogin = () => {
       ).unwrap(); // エラーならエラーで返すようにする
 
       // トップページに遷移する
-      navigate("/");
+      navigate('/');
     },
     [useDispatch], // Reduxの度に再定義
   );

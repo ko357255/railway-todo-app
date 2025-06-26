@@ -1,20 +1,20 @@
-import React, { useCallback, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import "./index.css";
-import { useSignup } from "~/hooks/useSignup";
-import { useId } from "~/hooks/useId";
+import React, { useCallback, useState } from 'react';
+import { Navigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import './index.css';
+import { useSignup } from '~/hooks/useSignup';
+import { useId } from '~/hooks/useId';
 
 const SignUp = () => {
   const auth = useSelector((state) => state.auth.token !== null);
 
   const id = useId(); // ランダムなID
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false); // ボタンを押下しているかどうか
 
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const { signup } = useSignup(); // サインアップ関数を作る
 

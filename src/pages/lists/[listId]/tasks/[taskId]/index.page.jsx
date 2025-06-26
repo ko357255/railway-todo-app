@@ -1,11 +1,11 @@
-import { useCallback, useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { BackButton } from "~/components/BackButton";
-import "./index.css";
-import { setCurrentList } from "~/store/list";
-import { fetchTasks, updateTask, deleteTask } from "~/store/task";
-import { useId } from "~/hooks/useId";
+import { useCallback, useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { BackButton } from '~/components/BackButton';
+import './index.css';
+import { setCurrentList } from '~/store/list';
+import { fetchTasks, updateTask, deleteTask } from '~/store/task';
+import { useId } from '~/hooks/useId';
 
 const EditTask = () => {
   const id = useId();
@@ -14,11 +14,11 @@ const EditTask = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
+  const [title, setTitle] = useState('');
+  const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const task = useSelector((state) =>
@@ -60,7 +60,7 @@ const EditTask = () => {
   );
 
   const handleDelete = useCallback(() => {
-    if (!window.confirm("Are you sure you want to delete this task?")) {
+    if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
     }
 

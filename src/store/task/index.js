@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { handleThunkError } from "~/utils/handleThunkError";
-import axios from "~/vendor/axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { handleThunkError } from '~/utils/handleThunkError';
+import axios from '~/vendor/axios';
 
 const initialState = {
   tasks: null,
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const taskSlice = createSlice({
-  name: "task",
+  name: 'task',
   initialState,
   reducers: {
     resetTask: (state, _action) => {
@@ -65,7 +65,7 @@ export const {
 } = taskSlice.actions;
 
 export const fetchTasks = createAsyncThunk(
-  "task/fetchTasks",
+  'task/fetchTasks',
   async ({ force = false } = {}, thunkApi) => {
     const listId = thunkApi.getState().list.current;
     const currentListId = thunkApi.getState().task.listId;
@@ -94,7 +94,7 @@ export const fetchTasks = createAsyncThunk(
 );
 
 export const createTask = createAsyncThunk(
-  "task/createTask",
+  'task/createTask',
   async (payload, thunkApi) => {
     const listId = thunkApi.getState().list.current;
     if (!listId) {
@@ -118,7 +118,7 @@ export const createTask = createAsyncThunk(
 );
 
 export const updateTask = createAsyncThunk(
-  "task/updateTask",
+  'task/updateTask',
   async (payload, thunkApi) => {
     const listId = thunkApi.getState().list.current;
     if (!listId) {
@@ -146,7 +146,7 @@ export const updateTask = createAsyncThunk(
 );
 
 export const deleteTask = createAsyncThunk(
-  "task/deleteTask",
+  'task/deleteTask',
   async (payload, thunkApi) => {
     try {
       const listId = thunkApi.getState().list.current;

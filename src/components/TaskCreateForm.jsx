@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import "./TaskCreateForm.css";
-import { CheckIcon } from "~/icons/CheckIcon";
-import { createTask } from "~/store/task";
+import { useCallback, useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import './TaskCreateForm.css';
+import { CheckIcon } from '~/icons/CheckIcon';
+import { createTask } from '~/store/task';
 
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
@@ -13,10 +13,10 @@ export const TaskCreateForm = () => {
   // textarea のDOM要素が入る
   const [elemTextarea, setElemTextarea] = useState(null); // テキストエリア(タスク詳細)
 
-  const [formState, setFormState] = useState("initial"); // フォーカス中かどうかなど
+  const [formState, setFormState] = useState('initial'); // フォーカス中かどうかなど
 
-  const [title, setTitle] = useState(""); // タスクタイトル
-  const [detail, setDetail] = useState(""); // タスクの詳細
+  const [title, setTitle] = useState(''); // タスクタイトル
+  const [detail, setDetail] = useState(''); // タスクの詳細
   const [done, setDone] = useState(false); // タスク完了かどうか
 
   // タスクの完了と未完了を切り替える
@@ -28,7 +28,7 @@ export const TaskCreateForm = () => {
   const handleFocus = useCallback(() => {
     // useCallbackで再定義を防ぐことでパフォーマンスを上げる
     // けど、この関数はあんまり意味がない
-    setFormState("focused");
+    setFormState('focused');
   }, []);
 
   // フォーカスが外れた
@@ -45,16 +45,16 @@ export const TaskCreateForm = () => {
         return;
       }
 
-      setFormState("initial"); // フォーカスを外す
+      setFormState('initial'); // フォーカスを外す
       setDone(false); // 未完了にする
     }, 100);
   }, [title, detail]);
 
   // フォームをリセットする
   const handleDiscard = useCallback(() => {
-    setTitle("");
-    setDetail("");
-    setFormState("initial");
+    setTitle('');
+    setDetail('');
+    setFormState('initial');
     setDone(false);
   }, []);
 
@@ -62,7 +62,7 @@ export const TaskCreateForm = () => {
     (event) => {
       event.preventDefault();
 
-      setFormState("submitting");
+      setFormState('submitting');
 
       void dispatch(createTask({ title, detail, done }))
         .unwrap()
@@ -71,7 +71,7 @@ export const TaskCreateForm = () => {
         })
         .catch((err) => {
           alert(err.message);
-          setFormState("focused");
+          setFormState('focused');
         });
     },
     [title, detail, done],
@@ -85,20 +85,20 @@ export const TaskCreateForm = () => {
     }
 
     const recalcHeight = () => {
-      elemTextarea.style.height = "auto"; // いったん auto にしないとバグるらしい
+      elemTextarea.style.height = 'auto'; // いったん auto にしないとバグるらしい
       // element.scrollHeight: コンテンツ（文字数など）が占める高さを返す
       elemTextarea.style.height = `${elemTextarea.scrollHeight}px`; // 高さ調整
     };
 
     // 入力されるたびに呼び出すイベントを追加
-    elemTextarea.addEventListener("input", recalcHeight);
+    elemTextarea.addEventListener('input', recalcHeight);
     recalcHeight();
 
     // useEffectのreturnは
     // 再実行される直前(またはアンマウント)に呼ばれる
     return () => {
       // イベントを削除
-      elemTextarea.removeEventListener("input", recalcHeight);
+      elemTextarea.removeEventListener('input', recalcHeight);
     };
   }, [elemTextarea]);
   // textarea(DOM要素)が変化したら（入力の変化ではなく、要素自体の変化）
@@ -140,10 +140,10 @@ export const TaskCreateForm = () => {
           onChange={(e) => setTitle(e.target.value)}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          disabled={formState === "submitting"}
+          disabled={formState === 'submitting'}
         />
       </div>
-      {formState !== "initial" && (
+      {formState !== 'initial' && (
         <div>
           <textarea
             // ref はDOM操作用に使う
@@ -156,7 +156,7 @@ export const TaskCreateForm = () => {
             onChange={(e) => setDetail(e.target.value)}
             // フォーカスが外れたときのイベント
             onBlur={handleBlur}
-            disabled={formState === "submitting"}
+            disabled={formState === 'submitting'}
           />
           <div className="task_create_form__actions">
             <button
@@ -165,7 +165,7 @@ export const TaskCreateForm = () => {
               data-variant="secondary"
               onBlur={handleBlur}
               onClick={handleDiscard}
-              disabled={(!title && !detail) || formState === "submitting"}
+              disabled={(!title && !detail) || formState === 'submitting'}
             >
               Discard
             </button>
@@ -174,7 +174,7 @@ export const TaskCreateForm = () => {
               type="submit"
               className="app_button"
               onBlur={handleBlur}
-              disabled={!title || !detail || formState === "submitting"}
+              disabled={!title || !detail || formState === 'submitting'}
             >
               Add
             </button>

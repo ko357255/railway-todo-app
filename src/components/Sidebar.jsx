@@ -1,11 +1,11 @@
-import { ListIcon } from "~/icons/ListIcon";
-import "./Sidebar.css";
-import { Link, useLocation } from "react-router-dom";
-import { PlusIcon } from "~/icons/PlusIcon";
-import { useSelector, useDispatch } from "react-redux";
-import { useLogout } from "~/hooks/useLogout";
-import { useEffect } from "react";
-import { fetchLists } from "~/store/list/index";
+import { ListIcon } from '~/icons/ListIcon';
+import './Sidebar.css';
+import { Link, useLocation } from 'react-router-dom';
+import { PlusIcon } from '~/icons/PlusIcon';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLogout } from '~/hooks/useLogout';
+import { useEffect } from 'react';
+import { fetchLists } from '~/store/list/index';
 
 export const Sidebar = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ export const Sidebar = () => {
   const userName = useSelector((state) => state.auth.user?.name);
 
   // リスト新規作成ページではリストをハイライトしない
-  const shouldHighlight = !pathname.startsWith("/list/new"); // パスが '/list/new' ではない
+  const shouldHighlight = !pathname.startsWith('/list/new'); // パスが '/list/new' ではない
 
   // ログアウト関数
   const { logout } = useLogout();
