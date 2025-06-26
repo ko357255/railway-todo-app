@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
+import { AppButton } from '~/components/AppButton';
 import './index.css';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
@@ -127,17 +128,17 @@ const EditTask = () => {
             Cancel
           </Link>
           <div className="edit_list__form_actions_spacer"></div>
-          <button
+          <AppButton
             type="button"
-            className="app_button edit_list__form_actions_delete"
+            className="edit_list__form_actions_delete"
             disabled={isSubmitting}
             onClick={handleDelete}
           >
             Delete
-          </button>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
+          </AppButton>
+          <AppButton type="submit" disabled={isSubmitting}>
             Update
-          </button>
+          </AppButton>
         </div>
       </form>
     </main>

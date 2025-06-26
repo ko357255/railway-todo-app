@@ -3,6 +3,7 @@ import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useLogin } from '~/hooks/useLogin';
 import { useId } from '~/hooks/useId';
+import { AppButton } from '~/components/AppButton';
 import './index.css';
 
 const SignIn = () => {
@@ -91,9 +92,9 @@ const SignIn = () => {
           </Link>
           <div className="signin__form_actions_spacer"></div>
           {/* ボタン押下中(isSubmitting)は送信できなくする */}
-          <button type="submit" className="app_button" disabled={isSubmitting}>
+          <AppButton type="submit" disabled={isSubmitting}>
             Login
-          </button>
+          </AppButton>
         </div>
       </form>
     </main>

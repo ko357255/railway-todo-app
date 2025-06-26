@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
+import { AppButton } from '~/components/AppButton';
 import './index.css';
 import { createList, setCurrentList } from '~/store/list/index';
 import { useId } from '~/hooks/useId';
@@ -61,9 +62,9 @@ const NewList = () => {
             Cancel
           </Link>
           <div className="new_list__form_actions_spacer"></div>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
+          <AppButton type="submit" disabled={isSubmitting}>
             Create
-          </button>
+          </AppButton>
         </div>
       </form>
     </main>

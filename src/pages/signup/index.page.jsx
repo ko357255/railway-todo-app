@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { AppButton } from '~/components/AppButton';
 import './index.css';
 import { useSignup } from '~/hooks/useSignup';
 import { useId } from '~/hooks/useId';
@@ -99,9 +100,9 @@ const SignUp = () => {
           </Link>
           <div className="signup__form_actions_spacer"></div>
           {/* ボタン押下中は送信不可にする */}
-          <button type="submit" className="app_button" disabled={isSubmitting}>
+          <AppButton type="submit" disabled={isSubmitting}>
             Register
-          </button>
+          </AppButton>
         </div>
       </form>
     </main>
