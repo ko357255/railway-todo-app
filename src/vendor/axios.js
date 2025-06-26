@@ -11,7 +11,8 @@ const axiosInstance = axios.create({
 // レスポンスが返ってきたときの、共通処理
 axiosInstance.interceptors.response.use(
   (response) => response, // 成功時
-  (err) => { //エラー時
+  (err) => {
+    //エラー時
     // 401を返す場合はトークンを飛ばしてログイン画面に遷移
     // 401:アクセス権限エラー（認証情報不足など）
     if (err && err.response && err.response.status === 401) {

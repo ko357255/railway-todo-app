@@ -5,7 +5,7 @@ import axios from "~/vendor/axios";
 const initialState = {
   lists: null, // (store上の)TODOリストの配列
   current: null, // サイドバーで選択中のTODOリストID
-  isLoading: false, // 読み込み中かどうか 
+  isLoading: false, // 読み込み中かどうか
 };
 
 export const listSlice = createSlice({

@@ -47,7 +47,6 @@ export const { setToken, setUserIsLoading, setUser } = authSlice.actions;
 // アクションクリエイター関数はこんな風に使える
 // dispatch(func(payload));
 
-
 // ログインユーザーをstoreにセットするchunk関数
 // createAsyncThunk: アクションクリエイター
 export const fetchUser = createAsyncThunk(
@@ -59,7 +58,6 @@ export const fetchUser = createAsyncThunk(
   // auth/fetchUser/rejected エラーになった時
   // だけど、今回は利用してない？
   // createAsyncThunkを使う意味ある？
-
 
   // force: ログインデータが既にあっても、取得するかどうか？
   async ({ force = false } = {}, thunkApi) => {

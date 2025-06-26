@@ -19,7 +19,7 @@ const EditList = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const list = useSelector((state) =>
-    state.list.lists?.find((list) => list.id === listId)
+    state.list.lists?.find((list) => list.id === listId),
   ); // 選択中のTODOリスト
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const EditList = () => {
           setIsSubmitting(false);
         });
     },
-    [title, listId]
+    [title, listId],
   );
 
   const handleDelete = useCallback(() => {
