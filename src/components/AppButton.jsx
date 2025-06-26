@@ -1,7 +1,8 @@
 import './AppButton.css';
 
 export const AppButton = ({
-    children
+    children,
+    type = 'button',
 }) => {
   return (
     <button
