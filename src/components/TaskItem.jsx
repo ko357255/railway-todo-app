@@ -14,8 +14,10 @@ export const TaskItem = ({ task }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // タスクの完了ボタン
   const handleToggle = useCallback(() => {
     setIsSubmitting(true);
+    // 現在の状態を反転させてアップデートする
     void dispatch(updateTask({ id, done: !done })).finally(() => {
       setIsSubmitting(false);
     });
@@ -24,17 +26,19 @@ export const TaskItem = ({ task }) => {
   return (
     <div className="task_item">
       <div className="task_item__title_container">
+        {/* 完了ボタン */}
         <button
           type="button"
           onClick={handleToggle}
           disabled={isSubmitting}
           className="task__item__mark_button"
         >
-          {done ? (
+          {done ? ( // 完了済
             <div className="task_item__mark____complete" aria-label="Completed">
               <CheckIcon className="task_item__mark____complete_check" />
             </div>
           ) : (
+            // 未完了
             <div
               className="task_item__mark____incomplete"
               aria-label="Incomplete"
@@ -42,6 +46,7 @@ export const TaskItem = ({ task }) => {
           )}
         </button>
         <div className="task_item__title" data-done={done}>
+          {/* 完了済みならデザインをCSSで変える */}
           {title}
         </div>
         <div aria-hidden className="task_item__title_spacer"></div>

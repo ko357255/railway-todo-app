@@ -20,7 +20,7 @@ const EditList = () => {
 
   const list = useSelector((state) =>
     state.list.lists?.find((list) => list.id === listId),
-  );
+  ); // 選択中のTODOリスト
 
   useEffect(() => {
     if (list) {
@@ -55,6 +55,7 @@ const EditList = () => {
 
   const handleDelete = useCallback(() => {
     if (!window.confirm("Are you sure you want to delete this list?")) {
+      // キャンセルされたら処理を終わる
       return;
     }
 

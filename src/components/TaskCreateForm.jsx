@@ -7,25 +7,32 @@ import { createTask } from "~/store/task";
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
 
-  const refForm = useRef(null);
-  const [elemTextarea, setElemTextarea] = useState(null);
+  // useRef: 直接要素を取得する
+  const refForm = useRef(null); // フォーム全体の要素
 
-  const [formState, setFormState] = useState("initial");
+  // HTMLエレメントが入る
+  const [elemTextarea, setElemTextarea] = useState(null); // テキストエリア(タスク詳細)
 
-  const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
-  const [done, setDone] = useState(false);
+  const [formState, setFormState] = useState("initial"); // フォーカス中かどうかなど
 
+  const [title, setTitle] = useState(""); // タスクタイトル
+  const [detail, setDetail] = useState(""); // タスクの詳細
+  const [done, setDone] = useState(false); // タスク完了かどうか
+
+  // タスクの完了と未完了を切り替える
   const handleToggle = useCallback(() => {
     setDone((prev) => !prev);
   }, []);
 
+  // フォーカスされた
   const handleFocus = useCallback(() => {
     setFormState("focused");
   }, []);
 
+  // フォーカスが外れた
   const handleBlur = useCallback(() => {
     if (title || detail) {
+      // タイトルまたは詳細があるなら、外さない
       return;
     }
 
@@ -36,11 +43,12 @@ export const TaskCreateForm = () => {
         return;
       }
 
-      setFormState("initial");
-      setDone(false);
+      setFormState("initial"); // フォーカスを外す
+      setDone(false); // 未完了にする
     }, 100);
   }, [title, detail]);
 
+  // フォームをリセットする
   const handleDiscard = useCallback(() => {
     setTitle("");
     setDetail("");
@@ -67,23 +75,28 @@ export const TaskCreateForm = () => {
     [title, detail, done],
   );
 
+  // textarea(タスク詳細)の縦の自動調整
   useEffect(() => {
     if (!elemTextarea) {
+      // テキストエリアがないなら、何もしない
       return;
     }
 
     const recalcHeight = () => {
-      elemTextarea.style.height = "auto";
-      elemTextarea.style.height = `${elemTextarea.scrollHeight}px`;
+      elemTextarea.style.height = "auto"; // いったん auto にしないとバグるらしい
+      // element.scrollHeight: コンテンツ（文字数など）が占める高さを返す
+      elemTextarea.style.height = `${elemTextarea.scrollHeight}px`; // 高さ調整
     };
 
+    // 入力されるたびに呼び出す
     elemTextarea.addEventListener("input", recalcHeight);
     recalcHeight();
 
     return () => {
+      // 再実行される前に、イベントを消す？
       elemTextarea.removeEventListener("input", recalcHeight);
     };
-  }, [elemTextarea]);
+  }, [elemTextarea]); // テキストエリア要素が変化したら
 
   return (
     <form

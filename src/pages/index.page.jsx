@@ -7,14 +7,18 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // 選択中のリストID
   const currentListId = useSelector((state) => state.list.current);
 
   useEffect(() => {
+    // リストを取得
     dispatch(fetchLists());
   }, []);
 
   useEffect(() => {
+    // 選択中リストIDがあるなら
     if (currentListId) {
+      // そのパスに飛ばす
       navigate(`/lists/${currentListId}`);
     }
   }, [currentListId]);

@@ -156,6 +156,7 @@ export const signup = createAsyncThunk(
   },
 );
 
+// ログアウト
 export const logout = createAsyncThunk(
   "auth/logout",
   async (_payload, thunkApi) => {

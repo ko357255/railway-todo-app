@@ -3,50 +3,59 @@ import { handleThunkError } from "~/utils/handleThunkError";
 import axios from "~/vendor/axios";
 
 const initialState = {
-  lists: null,
-  current: null,
-  isLoading: false,
+  lists: null, // (store上の)TODOリストの配列
+  current: null, // サイドバーで選択中のTODOリストID
+  isLoading: false, // 読み込み中かどうか 
 };
 
 export const listSlice = createSlice({
   name: "list",
   initialState,
   reducers: {
+    // TODOリスト関連をリセット
     resetList: (state, _action) => {
       state.lists = null;
       state.current = null;
       state.isLoading = false;
     },
+    // リストと、選択中リストをセット
     setList: (state, action) => {
       state.lists = action.payload;
 
+      // リストが０より多いなら
       if (action.payload.length > 0) {
+        // 選択中リストIDを0番目にする
         state.current = action.payload[0].id;
       } else {
         state.current = null;
       }
     },
+    // 選択中リストIDをセット
     setCurrentList: (state, action) => {
       state.current = action.payload;
     },
     setListIsLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    // TODOリストに追加
     addList: (state, action) => {
       const title = action.payload.title;
       const id = action.payload.id;
 
       state.lists.push({ title, id });
     },
+    // TODOリストから削除
     removeList: (state, action) => {
       const id = action.payload.id;
 
       state.lists = state.lists.filter((list) => list.id !== id);
 
+      // 選択中のリストだったら、0番目または未選択にする
       if (state.current === id) {
         state.current = state.lists[0]?.id || null;
       }
     },
+    // TODOリストのタイトルを更新
     mutateList: (state, action) => {
       const id = action.payload.id;
       const title = action.payload.title;
@@ -72,6 +81,8 @@ export const {
   mutateList,
 } = listSlice.actions;
 
+// TODOリストを取得するアクションクリエイター
+// ↑のはずだけど、Actionは使ってない
 export const fetchLists = createAsyncThunk(
   "list/fetchLists",
   async ({ force = false } = {}, thunkApi) => {
