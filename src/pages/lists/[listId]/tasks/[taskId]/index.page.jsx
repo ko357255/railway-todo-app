@@ -22,7 +22,7 @@ const EditTask = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const task = useSelector((state) =>
-    state.task.tasks?.find((task) => task.id === taskId),
+    state.task.tasks?.find((task) => task.id === taskId)
   );
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const EditTask = () => {
           setIsSubmitting(false);
         });
     },
-    [title, taskId, listId, detail, done],
+    [title, taskId, listId, detail, done]
   );
 
   const handleDelete = useCallback(() => {
