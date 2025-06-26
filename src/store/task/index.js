@@ -137,7 +137,7 @@ export const updateTask = createAsyncThunk(
       await axios.put(`/lists/${listId}/tasks/${payload.id}`, {
         ...oldValue,
         ...payload,
-      });
+      }); // oldValueを展開し、そこにpayloadの値を上書き、追加を行う
       thunkApi.dispatch(mutateTask(payload));
     } catch (e) {
       handleThunkError(e, thunkApi);

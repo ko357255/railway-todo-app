@@ -7,10 +7,10 @@ import { createTask } from "~/store/task";
 export const TaskCreateForm = () => {
   const dispatch = useDispatch();
 
-  // useRef: 直接要素を取得する
+  // useRef: 直接DOM要素を取得する
   const refForm = useRef(null); // フォーム全体の要素
 
-  // HTMLエレメントが入る
+  // textarea のDOM要素が入る
   const [elemTextarea, setElemTextarea] = useState(null); // テキストエリア(タスク詳細)
 
   const [formState, setFormState] = useState("initial"); // フォーカス中かどうかなど
@@ -24,8 +24,10 @@ export const TaskCreateForm = () => {
     setDone((prev) => !prev);
   }, []);
 
-  // フォーカスされた
+  // フォーカスされたとき
   const handleFocus = useCallback(() => {
+    // useCallbackで再定義を防ぐことでパフォーマンスを上げる
+    // けど、この関数はあんまり意味がない
     setFormState("focused");
   }, []);
 
@@ -88,15 +90,18 @@ export const TaskCreateForm = () => {
       elemTextarea.style.height = `${elemTextarea.scrollHeight}px`; // 高さ調整
     };
 
-    // 入力されるたびに呼び出す
+    // 入力されるたびに呼び出すイベントを追加
     elemTextarea.addEventListener("input", recalcHeight);
     recalcHeight();
 
+    // useEffectのreturnは
+    // 再実行される直前(またはアンマウント)に呼ばれる
     return () => {
-      // 再実行される前に、イベントを消す？
+      // イベントを削除
       elemTextarea.removeEventListener("input", recalcHeight);
     };
-  }, [elemTextarea]); // テキストエリア要素が変化したら
+  }, [elemTextarea]);
+  // textarea(DOM要素)が変化したら（入力の変化ではなく、要素自体の変化）
 
   return (
     <form
@@ -141,12 +146,15 @@ export const TaskCreateForm = () => {
       {formState !== "initial" && (
         <div>
           <textarea
+            // ref はDOM操作用に使う
+            // ↓ は (DOM要素) => setElementTextarea(DOM要素) と同じ意味
             ref={setElemTextarea}
             rows={1}
             className="task_create_form__detail"
             placeholder="Add a description here..."
             value={detail}
             onChange={(e) => setDetail(e.target.value)}
+            // フォーカスが外れたときのイベント
             onBlur={handleBlur}
             disabled={formState === "submitting"}
           />
