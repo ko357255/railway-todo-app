@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppButton } from '~/components/AppButton';
 import { AppInput } from '~/components/AppInput';
