@@ -16,36 +16,47 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([globalIgnores([
+    // チェック対象外ファイル
+    "dist/",
     "src/components/digital-agency/**/*",
     "**/package.json",
     "**/package-lock.json",
     "**/.eslintrc.json",
     "src/components/HTMLComponentWithScript.jsx",
 ]), {
-    extends: compat.extends("eslint:recommended", "plugin:react/recommended", "prettier"),
+    // ルールセットを継承する
+    extends: compat.extends(
+        "eslint:recommended", // eslintの基本的なルールセット
+        "plugin:react/recommended", // eslint-reactの推奨ルールセット
+        "prettier" // prettierのフォーマットルールとの競合しないよう、フォーマットを無効化
+    ),
 
+    // ESlintで使用するプラグイン
     plugins: {
         react,
         json,
     },
 
+    // コードの解析オプション
     languageOptions: {
         globals: {
-            ...globals.browser,
-            localStorage: "readonly",
+            ...globals.browser, // ブラウザ環境
+            localStorage: "readonly", // ローカルストレージを認識させる
         },
     },
 
+    // プラグインの設定
     settings: {
         react: {
-            version: "detect",
+            version: "detect", // Reactのバージョンを自動検出する
         },
     },
 
+    // 個別ルール
     rules: {
-        "no-console": "error",
-        "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off",
-        "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+        "no-console": "error", // console.log()を禁止
+        "react/jsx-uses-react": "off", // JSXではReactのインポートがなくてもOK
+        "react/react-in-jsx-scope": "off", // 同上
+        "no-unused-vars": ["error", { argsIgnorePattern: "^_" }], // 未使用の変数を禁止(_は許可)
     },
 }]);
