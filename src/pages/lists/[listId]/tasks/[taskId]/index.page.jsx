@@ -124,7 +124,7 @@ const EditTask = () => {
           </div>
         </fieldset>
         <div className="edit_list__form_actions">
-          <AppButton to="/" data-variant="secondary" >
+          <AppButton to="/" data-variant="secondary">
             Cancel
           </AppButton>
           <div className="edit_list__form_actions_spacer"></div>

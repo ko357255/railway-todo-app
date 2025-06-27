@@ -12,13 +12,15 @@ export const AppButton = ({
 }) => {
   const buttonClassName = `app_button ${className}`;
 
-  if (to) { // Link
+  if (to) {
+    // Link
     return (
       <Link to={to} className={buttonClassName} {...props}>
         {children}
       </Link>
     );
-  } else { // button
+  } else {
+    // button
     return (
       <button
         type={type}

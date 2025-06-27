@@ -49,9 +49,7 @@ const ListIndex = () => {
         )}
         <div className="tasks_list__title_spacer"></div>
         {/* リスト編集ボタン */}
-        <AppButton to={`/lists/${listId}/edit`}>
-          Edit...
-        </AppButton>
+        <AppButton to={`/lists/${listId}/edit`}>Edit...</AppButton>
       </div>
       <div className="tasks_list__items">
         {/* タスク作成フォーム */}
