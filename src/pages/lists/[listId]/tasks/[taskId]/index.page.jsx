@@ -19,6 +19,8 @@ const EditTask = () => {
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
+  const [limitDate, setLimitDate] = useState('');
+  const [limitTime, setLimitTime] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,6 +34,11 @@ const EditTask = () => {
       setTitle(task.title);
       setDetail(task.detail);
       setDone(task.done);
+
+      if (task.limit) {
+        setLimitDate(task.limit.substring(0, 10));
+        setLimitTime(task.limit.substring(11, 16));
+      }
     }
   }, [task]);
 
@@ -46,7 +53,13 @@ const EditTask = () => {
 
       setIsSubmitting(true);
 
-      void dispatch(updateTask({ id: taskId, title, detail, done }))
+      const taskPayload = { id: taskId, title, detail, done, limit: null };
+
+      if (limitDate && limitTime) {
+        taskPayload.limit = `${limitDate}T${limitTime}:00Z`;
+      }
+
+      void dispatch(updateTask(taskPayload))
         .unwrap()
         .then(() => {
           navigate(`/lists/${listId}`);
@@ -58,7 +71,7 @@ const EditTask = () => {
           setIsSubmitting(false);
         });
     },
-    [title, taskId, listId, detail, done],
+    [title, taskId, listId, detail, done, limitDate, limitTime],
   );
 
   const handleDelete = useCallback(() => {
@@ -84,7 +97,7 @@ const EditTask = () => {
   return (
     <main className="edit_list">
       <BackButton />
-      <h2 className="edit_list__title">Edit List</h2>
+      <h2 className="edit_list__title">Edit Task</h2>
       <p className="edit_list__error">{errorMessage}</p>
       <form className="edit_list__form" onSubmit={onSubmit}>
         <fieldset className="edit_list__form_field">
@@ -102,13 +115,32 @@ const EditTask = () => {
           <label htmlFor={`${id}-detail`} className="edit_list__form_label">
             Description
           </label>
-          <AppInput 
-            type='textarea'
+          <AppInput
+            type="textarea"
             id={`${id}-detail`}
             placeholder="Blah blah blah"
             value={detail}
             onChange={(event) => setDetail(event.target.value)}
           />
+        </fieldset>
+        <fieldset aria-labelledby={`${id}-limit`}>
+          <div id={`${id}-limit`} className="edit_list__form_label">
+            limit
+          </div>
+          <div className="edit_task__form_date">
+            <input
+              id={`${id}-limit`}
+              type="date"
+              value={limitDate}
+              onChange={(e) => setLimitDate(e.target.value)}
+            />
+            <input
+              id={`${id}-limit`}
+              type="time"
+              value={limitTime}
+              onChange={(e) => setLimitTime(e.target.value)}
+            />
+          </div>
         </fieldset>
         <fieldset className="edit_list__form_field">
           <label htmlFor={`${id}-done`} className="edit_list__form_label">

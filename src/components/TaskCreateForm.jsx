@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { fromZonedTime } from 'date-fns-tz';
 import { AppButton } from './AppButton';
 import './TaskCreateForm.css';
 import { CheckIcon } from '~/icons/CheckIcon';
@@ -19,6 +20,8 @@ export const TaskCreateForm = () => {
   const [title, setTitle] = useState(''); // タスクタイトル
   const [detail, setDetail] = useState(''); // タスクの詳細
   const [done, setDone] = useState(false); // タスク完了かどうか
+  const [limitDate, setLimitDate] = useState(''); // 期限日付
+  const [limitTime, setLimitTime] = useState(''); // 期限時間
 
   // タスクの完了と未完了を切り替える
   const handleToggle = useCallback(() => {
@@ -45,7 +48,6 @@ export const TaskCreateForm = () => {
       if (formElement && formElement.contains(document.activeElement)) {
         return;
       }
-
       setFormState('initial'); // フォーカスを外す
       setDone(false); // 未完了にする
     }, 100);
@@ -57,6 +59,8 @@ export const TaskCreateForm = () => {
     setDetail('');
     setFormState('initial');
     setDone(false);
+    setLimitDate('');
+    setLimitTime('');
   }, []);
 
   const onSubmit = useCallback(
@@ -65,7 +69,20 @@ export const TaskCreateForm = () => {
 
       setFormState('submitting');
 
-      void dispatch(createTask({ title, detail, done }))
+      const taskPayload = { title, detail, done };
+
+      // 日時と時間があるとき
+      if (limitDate && limitTime) {
+        // 日本時間をUTCに変更
+        const utcLimit = fromZonedTime(
+          `${limitDate}T${limitTime}:00`, // 日本時間
+          'Asia/Tokyo', // 日本のタイムゾーン
+        );
+        // ISOの形式にフォーマットして渡す
+        taskPayload.limit = utcLimit.toISOString();
+      }
+
+      void dispatch(createTask(taskPayload))
         .unwrap()
         .then(() => {
           handleDiscard();
@@ -75,7 +92,7 @@ export const TaskCreateForm = () => {
           setFormState('focused');
         });
     },
-    [title, detail, done],
+    [title, detail, done, limitDate, limitTime],
   );
 
   // textarea(タスク詳細)の縦の自動調整
@@ -159,6 +176,18 @@ export const TaskCreateForm = () => {
             onBlur={handleBlur}
             disabled={formState === 'submitting'}
           />
+          <div className='task_create_form_date'>
+            <input
+              type="date"
+              value={limitDate}
+              onChange={(e) => setLimitDate(e.target.value)}
+            />
+            <input
+              type="time"
+              value={limitTime}
+              onChange={(e) => setLimitTime(e.target.value)}
+            />
+          </div>
           <div className="task_create_form__actions">
             <AppButton
               type="button"

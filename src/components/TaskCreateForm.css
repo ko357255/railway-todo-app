@@ -94,3 +94,12 @@
 .task_create_form__spacer {
   flex: 1;
 }
+
+.task_create_form_date {
+  color: var(--slate-400);
+  padding: 0.5rem 0;
+}
+
+.task_create_form_date input[type=time] {
+  margin-left: 12px;
+}

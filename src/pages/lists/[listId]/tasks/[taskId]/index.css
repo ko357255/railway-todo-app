@@ -49,3 +49,12 @@
 .edit_task__form_actions_delete {
   --app-button-accent-color: var(--red-500);
 }
+
+.edit_task__form_date {
+  color: var(--slate-600);
+  padding: 0.5rem 1rem;
+}
+
+.edit_task__form_date input[type=time]{
+  margin-left: 12px;
+}
