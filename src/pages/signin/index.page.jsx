@@ -87,9 +87,9 @@ const SignIn = () => {
         </fieldset>
         <div className="signin__form_actions">
           {/* サインアップボタン */}
-          <Link className="app_button" data-variant="secondary" to="/signup">
+          <AppButton data-variant="secondary" to="/signup">
             Register
-          </Link>
+          </AppButton>
           <div className="signin__form_actions_spacer"></div>
           {/* ボタン押下中(isSubmitting)は送信できなくする */}
           <AppButton type="submit" disabled={isSubmitting}>

@@ -94,9 +94,9 @@ const EditList = () => {
           />
         </fieldset>
         <div className="edit_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
+          <AppButton to="/" data-variant="secondary">
             Cancel
-          </Link>
+          </AppButton>
           <div className="edit_list__form_actions_spacer"></div>
           <AppButton
             type="button"

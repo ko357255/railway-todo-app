@@ -58,9 +58,9 @@ const NewList = () => {
           />
         </fieldset>
         <div className="new_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
+          <AppButton to="/" data-variant="secondary">
             Cancel
-          </Link>
+          </AppButton>
           <div className="new_list__form_actions_spacer"></div>
           <AppButton type="submit" disabled={isSubmitting}>
             Create

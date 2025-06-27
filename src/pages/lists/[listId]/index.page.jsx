@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { TaskItem } from '~/components/TaskItem';
+import { AppButton } from '~/components/AppButton';
 import { TaskCreateForm } from '~/components/TaskCreateForm';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks } from '~/store/task';
@@ -48,9 +49,9 @@ const ListIndex = () => {
         )}
         <div className="tasks_list__title_spacer"></div>
         {/* リスト編集ボタン */}
-        <Link to={`/lists/${listId}/edit`}>
-          <button className="app_button">Edit...</button>
-        </Link>
+        <AppButton to={`/lists/${listId}/edit`}>
+          Edit...
+        </AppButton>
       </div>
       <div className="tasks_list__items">
         {/* タスク作成フォーム */}
