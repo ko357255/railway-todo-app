@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^14.6.1",
     "@unocss/reset": "^66.2.3",
     "axios": "^1.10.0",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
     "eslint-plugin-json": "^4.0.1",
     "react": "19.1.0",
     "react-cookie": "^8.0.1",
