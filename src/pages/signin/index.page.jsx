@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useLogin } from '~/hooks/useLogin';
 import { useId } from '~/hooks/useId';
 import { AppButton } from '~/components/AppButton';
+import { AppInput } from '~/components/AppInput';
 import './index.css';
 
 const SignIn = () => {
@@ -63,11 +64,10 @@ const SignIn = () => {
           <label htmlFor={`${id}-email`} className="signin__form_label">
             E-mail Address
           </label>
-          <input
+          <AppInput
             id={`${id}-email`}
             type="email"
             autoComplete="email"
-            className="app_input"
             value={email}
             onChange={(event) => setEmail(event.target.value)} // メルアドのセット
           />
@@ -76,11 +76,10 @@ const SignIn = () => {
           <label htmlFor={`${id}-password`} className="signin__form_label">
             Password
           </label>
-          <input
+          <AppInput
             id={`${id}-password`}
             type="password"
             autoComplete="current-password"
-            className="app_input"
             value={password}
             onChange={(event) => setPassword(event.target.value)} // パスワードのセット
           />

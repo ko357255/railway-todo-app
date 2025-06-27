@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppButton } from '~/components/AppButton';
+import { AppInput } from '~/components/AppInput';
 import './index.css';
 import { useSignup } from '~/hooks/useSignup';
 import { useId } from '~/hooks/useId';
@@ -54,10 +55,9 @@ const SignUp = () => {
           <label htmlFor={`${id}-email`} className="signup__form_label">
             E-mail Address
           </label>
-          <input
+          <AppInput
             id={`${id}-email`}
             autoComplete="email"
-            className="app_input"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -70,10 +70,9 @@ const SignUp = () => {
           >
             Name
           </label>
-          <input
+          <AppInput
             id={`${id}-name`}
             type="text"
-            className="app_input"
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
@@ -86,10 +85,9 @@ const SignUp = () => {
           >
             Password
           </label>
-          <input
+          <AppInput
             id={`${id}-password`}
             type="password"
-            className="app_input"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
