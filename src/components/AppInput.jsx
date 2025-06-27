@@ -14,17 +14,33 @@ export const AppInput = (
   },
   ref, // DOM要素を直接操作するref
 ) => {
-  return (
-    <input
-      ref={ref}
-      id={id}
-      type={type}
-      className={`app_input ${className}`}
-      value={value}
-      onChange={onChange}
-      autoComplete={autoComplete}
-      placeholder={placeholder}
-      {...props}
-    />
-  );
+  const inputClassName = `app_input ${className}`;
+
+  if (type == 'textarea') {
+    return (
+      <textarea
+        ref={ref}
+        id={id}
+        className={inputClassName}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        {...props}
+      />
+    );
+  } else {
+    return (
+      <input
+        ref={ref}
+        id={id}
+        type={type}
+        className={inputClassName}
+        value={value}
+        onChange={onChange}
+        autoComplete={autoComplete}
+        placeholder={placeholder}
+        {...props}
+      />
+    );
+  }
 };
