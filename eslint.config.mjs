@@ -18,7 +18,6 @@ const compat = new FlatCompat({
 export default defineConfig([globalIgnores([
     // チェック対象外ファイル
     "dist/",
-    "src/components/digital-agency/**/*",
     "**/package.json",
     "**/package-lock.json",
     "**/.eslintrc.json",
@@ -58,5 +57,6 @@ export default defineConfig([globalIgnores([
         "react/jsx-uses-react": "off", // JSXではReactのインポートがなくてもOK
         "react/react-in-jsx-scope": "off", // 同上
         "no-unused-vars": ["error", { argsIgnorePattern: "^_" }], // 未使用の変数を禁止(_は許可)
+        "react/jsx-uses-vars": "error", // JSX内でも未使用の変数をエラーにする
     },
 }]);
