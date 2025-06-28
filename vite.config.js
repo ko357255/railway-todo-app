@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
   },
   resolve: {
-    alias: {
+    alias: { // エイリアスで~でパス指定可能に
       '~': '/src',
     },
   },
