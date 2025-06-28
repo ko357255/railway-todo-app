@@ -1,11 +1,12 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { parseISO, format, isPast, intervalToDuration } from 'date-fns';
-import { ja } from 'date-fns/locale';
+import { parseISO, isPast, intervalToDuration } from 'date-fns';
+import { format } from 'date-fns-tz'; // tzはタイムゾーンを操作できる
 import { PencilIcon } from '~/icons/PencilIcon';
 import { CheckIcon } from '~/icons/CheckIcon';
 import { updateTask } from '~/store/task';
+import { TaskEditModal } from './TaskEditModal';
 import './TaskItem.css';
 
 export const TaskItem = ({ task }) => {
@@ -15,13 +16,18 @@ export const TaskItem = ({ task }) => {
   const { id, title, detail, done, limit } = task;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const formatLimit = (limit) => {
     if (!limit) return { limitStr: null, remainingStr: null };
 
     // parseISO(): new Date() と同じだけど、ISO形式ではないとエラー
     const limitDate = parseISO(limit); // UTC時間
-    const limitStr = format(limitDate, 'yyyy/MM/dd HH:mm', { locale: ja }); // 日本時間に変更し、フォーマット
+
+    // date-fns-tz format(): タイムゾーンを指定してフォーマット
+    const limitStr = format(limitDate, 'yyyy/MM/dd HH:mm', {
+      timeZone: 'Asia/Tokyo',
+    });
 
     // isPast(): 現在の日付よりも前かどうか
     if (isPast(limitDate)) {
@@ -32,7 +38,7 @@ export const TaskItem = ({ task }) => {
     const duration = intervalToDuration({
       start: Date.now(),
       end: limitDate,
-    }); // 経過時間
+    });
 
     let remainingStr = '残り';
     if (duration.days > 0) remainingStr += `${duration.days}日`;
@@ -66,47 +72,59 @@ export const TaskItem = ({ task }) => {
   }, [id, done]);
 
   return (
-    <div className="task_item">
-      <div className="task_item__title_container">
-        {/* 完了ボタン */}
-        <button
-          type="button"
-          onClick={handleToggle}
-          disabled={isSubmitting}
-          className="task__item__mark_button"
-        >
-          {done ? ( // 完了済
-            <div className="task_item__mark____complete" aria-label="Completed">
-              <CheckIcon className="task_item__mark____complete_check" />
-            </div>
-          ) : (
-            // 未完了
-            <div
-              className="task_item__mark____incomplete"
-              aria-label="Incomplete"
-            ></div>
-          )}
-        </button>
-        <div className="task_item__title" data-done={done}>
-          {/* 完了済みならデザインをCSSで変える */}
-          {title}
-        </div>
-        <div aria-hidden className="task_item__title_spacer"></div>
-        <Link
-          to={`/lists/${listId}/tasks/${id}`}
-          className="task_item__title_action"
-        >
-          <PencilIcon aria-label="Edit" />
-        </Link>
-      </div>
-      <div className="task_item__detail">{detail}</div>
-      {limit && (
-        <div className="task_item__limit">
-          <div>
-            {limitStr} {done ? null : remainingStr}
+    <>
+      <div className="task_item">
+        <div className="task_item__title_container">
+          {/* 完了ボタン */}
+          <button
+            type="button"
+            onClick={handleToggle}
+            disabled={isSubmitting}
+            className="task__item__mark_button"
+          >
+            {done ? ( // 完了済
+              <div
+                className="task_item__mark____complete"
+                aria-label="Completed"
+              >
+                <CheckIcon className="task_item__mark____complete_check" />
+              </div>
+            ) : (
+              // 未完了
+              <div
+                className="task_item__mark____incomplete"
+                aria-label="Incomplete"
+              ></div>
+            )}
+          </button>
+          <div className="task_item__title" data-done={done}>
+            {/* 完了済みならデザインをCSSで変える */}
+            {title}
+          </div>
+          <div aria-hidden className="task_item__title_spacer"></div>
+          <div
+            className="task_item__title_action"
+            onClick={() => setIsOpen(true)}
+          >
+            <PencilIcon aria-label="Edit" />
           </div>
         </div>
-      )}
-    </div>
+        <div className="task_item__detail">{detail}</div>
+        {limit && (
+          <div className="task_item__limit">
+            <div>
+              {limitStr} {done ? null : remainingStr}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* タスク編集モーダル */}
+      <TaskEditModal
+        task={task}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+    </>
   );
 };

@@ -1,6 +1,8 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { parseISO } from 'date-fns';
+import { fromZonedTime, format } from 'date-fns-tz';
 import { BackButton } from '~/components/BackButton';
 import { AppButton } from '~/components/AppButton';
 import './index.css';
@@ -36,8 +38,9 @@ const EditTask = () => {
       setDone(task.done);
 
       if (task.limit) {
-        setLimitDate(task.limit.substring(0, 10));
-        setLimitTime(task.limit.substring(11, 16));
+        const utcDate = parseISO(task.limit);
+        setLimitDate(format(utcDate, 'yyyy-MM-dd', { timeZone: 'Asia/Tokyo' }));
+        setLimitTime(format(utcDate, 'HH:mm', { timeZone: 'Asia/Tokyo' }));
       }
     }
   }, [task]);
@@ -56,7 +59,11 @@ const EditTask = () => {
       const taskPayload = { id: taskId, title, detail, done, limit: null };
 
       if (limitDate && limitTime) {
-        taskPayload.limit = `${limitDate}T${limitTime}:00Z`;
+        const utcLimit = fromZonedTime(
+          `${limitDate}T${limitTime}:00`,
+          'Asia/Tokyo',
+        );
+        taskPayload.limit = utcLimit.toISOString();
       }
 
       void dispatch(updateTask(taskPayload))
