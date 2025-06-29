@@ -1,7 +1,22 @@
 import FocusLock from 'react-focus-lock';
 import './Modal.css';
+import { useEffect } from 'react';
 
 export const Modal = ({ isOpen, onClose, children }) => {
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null; // isOpenがfalseなら何も表示しない
 
