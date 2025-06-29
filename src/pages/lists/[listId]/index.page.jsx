@@ -1,14 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { TaskItem } from '~/components/TaskItem';
 import { AppButton } from '~/components/AppButton';
 import { TaskCreateForm } from '~/components/TaskCreateForm';
+import { ListEditModal } from '~/components/ListEditModal';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks } from '~/store/task';
 import './index.css';
 
 const ListIndex = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
   const { listId } = useParams(); // URLに渡されたlistId
 
@@ -49,8 +52,10 @@ const ListIndex = () => {
         )}
         <div className="tasks_list__title_spacer"></div>
         {/* リスト編集ボタン */}
-        <AppButton to={`/lists/${listId}/edit`}>Edit...</AppButton>
+        <AppButton onClick={() => setIsOpen(true)}>Edit...</AppButton>
       </div>
+      {/* リスト編集モーダル */}
+      <ListEditModal listId={listId} isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <div className="tasks_list__items">
         {/* タスク作成フォーム */}
         <TaskCreateForm />

@@ -79,7 +79,6 @@ export const TaskEditModal = ({ task, isOpen, onClose }) => {
     [title, taskId, detail, done, limitDate, limitTime, dispatch, onClose],
   );
 
-  // 削除処理
   const handleDelete = useCallback(() => {
     if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
@@ -118,7 +117,7 @@ export const TaskEditModal = ({ task, isOpen, onClose }) => {
               placeholder="Buy some milk"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
-              data-autofocus
+              data-autofocus // 初期フォーカス
             />
           </fieldset>
           <fieldset className="edit_task__form_field">
