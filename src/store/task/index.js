@@ -87,7 +87,7 @@ export const fetchTasks = createAsyncThunk(
       thunkApi.dispatch(setTasks(res.data.tasks || []));
       thunkApi.dispatch(setListId(listId));
     } catch (e) {
-      handleThunkError(e, thunkApi);
+      return handleThunkError(e, thunkApi);
     } finally {
       thunkApi.dispatch(setTaskIsLoading(false));
     }
@@ -113,7 +113,7 @@ export const createTask = createAsyncThunk(
         }),
       );
     } catch (e) {
-      handleThunkError(e, thunkApi);
+      return handleThunkError(e, thunkApi);
     }
   },
 );
@@ -141,7 +141,7 @@ export const updateTask = createAsyncThunk(
       }); // oldValueを展開し、そこにpayloadの値を上書き、追加を行う
       thunkApi.dispatch(mutateTask(payload));
     } catch (e) {
-      handleThunkError(e, thunkApi);
+      return handleThunkError(e, thunkApi);
     }
   },
 );
@@ -158,7 +158,7 @@ export const deleteTask = createAsyncThunk(
       await axios.delete(`/lists/${listId}/tasks/${payload.id}`);
       thunkApi.dispatch(removeTask(payload));
     } catch (e) {
-      handleThunkError(e, thunkApi);
+      return handleThunkError(e, thunkApi);
     }
   },
 );
