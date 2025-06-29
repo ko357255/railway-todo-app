@@ -72,7 +72,7 @@ export const TaskItem = ({ task }) => {
   }, [id, done]);
 
   return (
-    <>
+    <div>
       <div className="task_item">
         <div className="task_item__title_container">
           {/* 完了ボタン */}
@@ -118,13 +118,12 @@ export const TaskItem = ({ task }) => {
           </div>
         )}
       </div>
-
       {/* タスク編集モーダル */}
       <TaskEditModal
         task={task}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />
-    </>
+    </div>
   );
 };
