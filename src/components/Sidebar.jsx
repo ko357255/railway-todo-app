@@ -4,10 +4,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { PlusIcon } from '~/icons/PlusIcon';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogout } from '~/hooks/useLogout';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchLists } from '~/store/list/index';
 
 export const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const dispatch = useDispatch();
   // 現在のパスを受け取る (●●.com/[この部分])
   const { pathname } = useLocation();
@@ -31,7 +33,7 @@ export const Sidebar = () => {
   }, []);
 
   return (
-    <div className="sidebar">
+    <div className="sidebar" data-visible={isOpen}>
       {/* トップページのリンク */}
       <Link to="/">
         <h1 className="sidebar__title">Todos</h1>

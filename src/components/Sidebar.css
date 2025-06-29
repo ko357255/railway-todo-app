@@ -10,6 +10,17 @@
   border-right: 1px solid var(--slate-200);
   padding: 2.5rem 1.5rem;
   overflow-y: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+
+
+
+@media screen and (max-width: 750px) {
+  .sidebar {
+    /* 左にスライドして非表示 */
+    transform: translateX(-100%);
+  }
 }
 
 .sidebar__title {
