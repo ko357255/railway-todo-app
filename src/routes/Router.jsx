@@ -7,7 +7,6 @@ import NotFound from '~/pages/404';
 import SignIn from '~/pages/signin/index.page';
 import NewList from '~/pages/list/new/index.page';
 import SignUp from '~/pages/signup/index.page';
-import EditList from '~/pages/lists/[listId]/edit/index.page';
 import ListIndex from '~/pages/lists/[listId]/index.page';
 
 export const Router = () => {
@@ -39,8 +38,6 @@ export const Router = () => {
               <Route path="/lists/:listId" element={<ListIndex />} />
               {/* リスト作成画面 */}
               <Route path="/list/new" element={<NewList />} />
-              {/* リスト編集画面（IDに基づく） */}
-              <Route path="/lists/:listId/edit" element={<EditList />} />
             </>
           ) : (
             // ログイン中ではないのに、「/」に来たら
