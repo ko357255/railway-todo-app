@@ -3,6 +3,7 @@ import './Modal.css';
 import { useEffect } from 'react';
 
 export const Modal = ({ isOpen, onClose, children }) => {
+  // ESCキーでモーダルを閉じる
   useEffect(() => {
     if (!isOpen) return;
 
