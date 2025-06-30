@@ -11,16 +11,29 @@
   padding: 2.5rem 1.5rem;
   overflow-y: auto;
   transition: transform 0.2s ease-in-out;
+  transform: translateX(0);
 }
 
+/* 
+ サイドバーの状態
+ opne 開いている
+ 
+ mobile
+ open 開いている
+ closed 閉じている
+ 
+*/
 
+.sidebar.closed {
+  transform: translateX(-100%);
+}
 
+.sidebar.mobile {
+  width: 100% !important;
+}
 
-@media screen and (max-width: 750px) {
-  .sidebar {
-    /* 左にスライドして非表示 */
-    transform: translateX(-100%);
-  }
+.hamburger {
+  position: fixed;
 }
 
 .sidebar__title {

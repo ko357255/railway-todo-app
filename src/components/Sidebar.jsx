@@ -8,8 +8,6 @@ import { useEffect, useState } from 'react';
 import { fetchLists } from '~/store/list/index';
 
 export const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const dispatch = useDispatch();
   // 現在のパスを受け取る (●●.com/[この部分])
   const { pathname } = useLocation();
@@ -30,68 +28,98 @@ export const Sidebar = () => {
   // listsをstoreに入れる
   useEffect(() => {
     void dispatch(fetchLists());
+  }, [dispatch]);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 750);
+      setIsOpen(!(window.innerWidth < 750));
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
-    <div className="sidebar" data-visible={isOpen}>
-      {/* トップページのリンク */}
-      <Link to="/">
-        <h1 className="sidebar__title">Todos</h1>
-      </Link>
-      {isLoggedIn ? ( // ログイン中なら
-        <>
-          {/* リスト */}
-          {lists && ( // lists があるなら
-            <div className="sidebar__lists">
-              <h2 className="sidebar__lists_title">Lists</h2>
-              <ul className="sidebar__lists_items">
-                {/* リストを繰り返し、リスト一覧 */}
-                {lists.map((listItem) => (
-                  <li key={listItem.id}>
-                    <Link
-                      // data-active(true/false)でcssのデザインを切り替える
-                      // true: 選択中 false: 未選択
-                      data-active={shouldHighlight && listItem.id === activeId}
-                      to={`/lists/${listItem.id}`}
-                      className="sidebar__lists_item"
-                    >
-                      {/* リストのアイコン */}
-                      <ListIcon aria-hidden className="sidebar__lists_icon" />
-                      {listItem.title}
+    <>
+      {!isOpen && (
+        // ハンバーガーメニュー
+        <div className="hamburger">
+          <button onClick={() => setIsOpen(true)}>三</button>
+        </div>
+      )}
+
+      {/* サイドバー */}
+      <div
+        className={`sidebar ${isOpen ? 'open' : 'closed'} ${isMobile ? 'mobile' : ''}`}
+      >
+        {isOpen && <div>close</div>}
+        {/* トップページのリンク */}
+        <Link to="/">
+          <h1 className="sidebar__title">Todos</h1>
+        </Link>
+        {isLoggedIn ? ( // ログイン中なら
+          <>
+            {/* リスト */}
+            {lists && ( // lists があるなら
+              <div className="sidebar__lists">
+                <h2 className="sidebar__lists_title">Lists</h2>
+                <ul className="sidebar__lists_items">
+                  {/* リストを繰り返し、リスト一覧 */}
+                  {lists.map((listItem) => (
+                    <li key={listItem.id}>
+                      <Link
+                        // data-active(true/false)でcssのデザインを切り替える
+                        // true: 選択中 false: 未選択
+                        data-active={
+                          shouldHighlight && listItem.id === activeId
+                        }
+                        to={`/lists/${listItem.id}`}
+                        className="sidebar__lists_item"
+                      >
+                        {/* リストのアイコン */}
+                        <ListIcon aria-hidden className="sidebar__lists_icon" />
+                        {listItem.title}
+                      </Link>
+                    </li>
+                  ))}
+                  {/* 新規リストのボタン */}
+                  <li>
+                    <Link to="/list/new" className="sidebar__lists_button">
+                      <PlusIcon className="sidebar__lists_plus_icon" />
+                      New List...
                     </Link>
                   </li>
-                ))}
-                {/* 新規リストのボタン */}
-                <li>
-                  <Link to="/list/new" className="sidebar__lists_button">
-                    <PlusIcon className="sidebar__lists_plus_icon" />
-                    New List...
-                  </Link>
-                </li>
-              </ul>
+                </ul>
+              </div>
+            )}
+            <div className="sidebar__spacer" aria-hidden />
+            <div className="sidebar__account">
+              <p className="sidebar__account_name">{userName}</p>
+              {/* ログアウト */}
+              <button
+                type="button"
+                className="sidebar__account_logout"
+                onClick={logout}
+              >
+                Logout
+              </button>
             </div>
-          )}
-          <div className="sidebar__spacer" aria-hidden />
-          <div className="sidebar__account">
-            <p className="sidebar__account_name">{userName}</p>
-            {/* ログアウト */}
-            <button
-              type="button"
-              className="sidebar__account_logout"
-              onClick={logout}
-            >
-              Logout
-            </button>
-          </div>
-        </>
-      ) : (
-        // ログイン中ではないなら
-        <>
-          <Link to="/signin" className="sidebar__login">
-            Login
-          </Link>
-        </>
-      )}
-    </div>
+          </>
+        ) : (
+          // ログイン中ではないなら
+          <>
+            <Link to="/signin" className="sidebar__login">
+              Login
+            </Link>
+          </>
+        )}
+      </div>
+    </>
   );
 };
