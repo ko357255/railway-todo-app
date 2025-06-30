@@ -12,28 +12,30 @@
   overflow-y: auto;
   transition: transform 0.2s ease-in-out;
   transform: translateX(0);
+  z-index: 1;
 }
-
-/* 
- サイドバーの状態
- opne 開いている
- 
- mobile
- open 開いている
- closed 閉じている
- 
-*/
 
 .sidebar.closed {
   transform: translateX(-100%);
 }
 
-.sidebar.mobile {
-  width: 100% !important;
-}
-
 .hamburger {
   position: fixed;
+  top: 0;
+  left: 0;
+  padding: 15px;
+  font-size: 1.5rem;
+  color: var(--slate-800);
+  z-index: 1000;
+}
+
+.sidebar__overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .sidebar__title {

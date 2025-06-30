@@ -13,7 +13,7 @@ export const Sidebar = () => {
   const { pathname } = useLocation();
 
   // storeからいろいろ取得
-  // useSelector はstateが変わる度に再レンダリングされる
+  // useSelector() は、返す値が前回と異なる場合、再レンダリングされる
   const lists = useSelector((state) => state.list.lists);
   const activeId = useSelector((state) => state.list.current);
   const isLoggedIn = useSelector((state) => state.auth.token !== null);
@@ -25,7 +25,7 @@ export const Sidebar = () => {
   // ログアウト関数
   const { logout } = useLogout();
 
-  // listsをstoreに入れる
+  // listsを取得し、storeにセット
   useEffect(() => {
     void dispatch(fetchLists());
   }, [dispatch]);
@@ -35,8 +35,9 @@ export const Sidebar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 750);
-      setIsOpen(!(window.innerWidth < 750));
+      const isMobile = window.innerWidth < 750;
+      setIsMobile(isMobile);
+      setIsOpen(!isMobile);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -45,20 +46,43 @@ export const Sidebar = () => {
     };
   }, []);
 
+  const close = () => {
+    if (isMobile) {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <>
-      {!isOpen && (
-        // ハンバーガーメニュー
+      {/* ハンバーガーメニュー */}
+      {isMobile && ( // モバイル表示の場合
         <div className="hamburger">
-          <button onClick={() => setIsOpen(true)}>三</button>
+          {isOpen ? ( // サイドバー開いていたら
+            <button
+              className="sidebar__close_button"
+              onClick={() => setIsOpen(false)}
+            >
+              ×
+            </button>
+          ) : (
+            // 閉じていたら
+            <button onClick={() => setIsOpen(true)}>☰</button>
+          )}
         </div>
+      )}
+
+      {/* サイドバーのオーバーレイ */}
+      {isMobile && isOpen && (
+        <div
+          className="sidebar__overlay"
+          onClick={() => setIsOpen(false)}
+        ></div>
       )}
 
       {/* サイドバー */}
       <div
-        className={`sidebar ${isOpen ? 'open' : 'closed'} ${isMobile ? 'mobile' : ''}`}
+        className={`sidebar ${!isOpen ? 'closed' : ''} ${isMobile ? 'mobile' : ''}`}
       >
-        {isOpen && <div>close</div>}
         {/* トップページのリンク */}
         <Link to="/">
           <h1 className="sidebar__title">Todos</h1>
@@ -81,6 +105,7 @@ export const Sidebar = () => {
                         }
                         to={`/lists/${listItem.id}`}
                         className="sidebar__lists_item"
+                        onClick={close} // リスト選択時、サイドバーを閉じる
                       >
                         {/* リストのアイコン */}
                         <ListIcon aria-hidden className="sidebar__lists_icon" />
@@ -90,7 +115,11 @@ export const Sidebar = () => {
                   ))}
                   {/* 新規リストのボタン */}
                   <li>
-                    <Link to="/list/new" className="sidebar__lists_button">
+                    <Link
+                      to="/list/new"
+                      className="sidebar__lists_button"
+                      onClick={close}
+                    >
                       <PlusIcon className="sidebar__lists_plus_icon" />
                       New List...
                     </Link>
@@ -105,7 +134,10 @@ export const Sidebar = () => {
               <button
                 type="button"
                 className="sidebar__account_logout"
-                onClick={logout}
+                onClick={() => {
+                  close();
+                  logout();
+                }}
               >
                 Logout
               </button>
@@ -114,7 +146,7 @@ export const Sidebar = () => {
         ) : (
           // ログイン中ではないなら
           <>
-            <Link to="/signin" className="sidebar__login">
+            <Link to="/signin" className="sidebar__login" onClick={close}>
               Login
             </Link>
           </>
