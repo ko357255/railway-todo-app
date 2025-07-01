@@ -3,7 +3,6 @@ import './AppInput.css';
 export const AppInput = (
   {
     id,
-    name,
     type = 'text',
     autoComplete,
     className = '',
@@ -16,7 +15,7 @@ export const AppInput = (
 ) => {
   const inputClassName = `app_input ${className}`;
 
-  if (type == 'textarea') {
+  if (type === 'textarea') {
     return (
       <textarea
         ref={ref}
@@ -28,19 +27,18 @@ export const AppInput = (
         {...props}
       />
     );
-  } else {
-    return (
-      <input
-        ref={ref}
-        id={id}
-        type={type}
-        className={inputClassName}
-        value={value}
-        onChange={onChange}
-        autoComplete={autoComplete}
-        placeholder={placeholder}
-        {...props}
-      />
-    );
   }
+  return (
+    <input
+      ref={ref}
+      id={id}
+      type={type}
+      className={inputClassName}
+      value={value}
+      onChange={onChange}
+      autoComplete={autoComplete}
+      placeholder={placeholder}
+      {...props}
+    />
+  );
 };

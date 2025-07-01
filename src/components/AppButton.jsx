@@ -19,18 +19,17 @@ export const AppButton = ({
         {children}
       </Link>
     );
-  } else {
-    // button
-    return (
-      <button
-        type={type}
-        className={buttonClassName}
-        disabled={disable}
-        onClick={onClick}
-        {...props} // propsを展開する
-      >
-        {children}
-      </button>
-    );
   }
+  // button
+  return (
+    <button
+      type={type}
+      className={buttonClassName}
+      disabled={disable}
+      onClick={onClick}
+      {...props} // propsを展開する
+    >
+      {children}
+    </button>
+  );
 };
