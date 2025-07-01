@@ -13,7 +13,7 @@ export const Modal = ({ isOpen, onClose, children }) => {
       }
     };
     document.addEventListener('keydown', handleEscape);
-    
+
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };

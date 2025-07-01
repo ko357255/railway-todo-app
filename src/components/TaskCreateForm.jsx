@@ -176,7 +176,7 @@ export const TaskCreateForm = () => {
             onBlur={handleBlur}
             disabled={formState === 'submitting'}
           />
-          <div className='task_create_form_date'>
+          <div className="task_create_form_date">
             <input
               type="date"
               value={limitDate}

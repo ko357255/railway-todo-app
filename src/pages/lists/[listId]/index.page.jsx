@@ -55,7 +55,11 @@ const ListIndex = () => {
         <AppButton onClick={() => setIsOpen(true)}>Edit...</AppButton>
       </div>
       {/* リスト編集モーダル */}
-      <ListEditModal listId={listId} isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <ListEditModal
+        listId={listId}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
       <div className="tasks_list__items">
         {/* タスク作成フォーム */}
         <TaskCreateForm />

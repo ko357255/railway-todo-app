@@ -181,7 +181,10 @@ export const TaskEditModal = ({ task, isOpen, onClose }) => {
             >
               Delete
             </AppButton>
-            <AppButton type="submit" disabled={title == '' || detail == '' || isSubmitting}>
+            <AppButton
+              type="submit"
+              disabled={title == '' || detail == '' || isSubmitting}
+            >
               Update
             </AppButton>
           </div>
