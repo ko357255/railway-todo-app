@@ -108,7 +108,7 @@ export const ListEditModal = ({ listId, isOpen, onClose }) => {
             >
               Delete
             </AppButton>
-            <AppButton type="submit" disable={title == '' || isSubmitting}>
+            <AppButton type="submit" disable={title === '' || isSubmitting}>
               Update
             </AppButton>
           </div>

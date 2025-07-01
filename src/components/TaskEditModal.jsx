@@ -184,7 +184,7 @@ export const TaskEditModal = ({ task, isOpen, onClose }) => {
             </AppButton>
             <AppButton
               type="submit"
-              disabled={title == '' || detail == '' || isSubmitting}
+              disabled={title === '' || detail === '' || isSubmitting}
             >
               Update
             </AppButton>
