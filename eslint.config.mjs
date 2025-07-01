@@ -58,5 +58,6 @@ export default defineConfig([globalIgnores([
         "react/react-in-jsx-scope": "off", // 同上
         "no-unused-vars": ["error", { argsIgnorePattern: "^_" }], // 未使用の変数を禁止(_は許可)
         "react/jsx-uses-vars": "error", // JSX内でも未使用の変数をエラーにする
+        "react/prop-types": "off" // prop-typesをオフ
     },
 }]);
