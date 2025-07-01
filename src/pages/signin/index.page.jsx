@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useLogin } from '~/hooks/useLogin';

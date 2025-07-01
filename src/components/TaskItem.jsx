@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { parseISO, isPast, intervalToDuration } from 'date-fns';
 import { format } from 'date-fns-tz'; // tzはタイムゾーンを操作できる
@@ -12,7 +11,6 @@ import './TaskItem.css';
 export const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
 
-  const { listId } = useParams();
   const { id, title, detail, done, limit } = task;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,7 +45,12 @@ export const TaskItem = ({ task }) => {
 
     if (duration.minutes > 0) remainingStr += `${duration.minutes}分`;
 
-    if (duration.days === 0 && duration.hours === 0 && duration.minutes === 0) {
+    if (
+      duration.days === undefined &&
+      duration.hours === undefined &&
+      duration.minutes === undefined &&
+      duration.seconds > 0
+    ) {
       remainingStr += 'わずか';
     }
     remainingStr += 'です';

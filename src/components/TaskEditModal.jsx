@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { parseISO } from 'date-fns';
 import { fromZonedTime, format } from 'date-fns-tz';
@@ -17,6 +17,7 @@ export const TaskEditModal = ({ task, isOpen, onClose }) => {
   const { listId } = useParams();
   const taskId = task.id;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');

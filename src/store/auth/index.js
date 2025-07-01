@@ -13,6 +13,7 @@ const initialState = {
   isLoading: false,
 };
 
+
 // authのスライスを定義
 // スライス: 状態(state) と 変化を起こす (reducer) をひとまとめにしたもの
 export const authSlice = createSlice({

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
 import { Sidebar } from '~/components/Sidebar';
@@ -15,7 +14,6 @@ export const Router = () => {
   // (state) には全体のデータが入る
   // state.auth.token: アクセストークン
   const auth = useSelector((state) => state.auth.token !== null);
-
   return (
     <BrowserRouter>
       {/* BrowserRouter の中では Routeで切り替えれるようになる */}
