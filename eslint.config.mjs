@@ -59,6 +59,7 @@ export default defineConfig([globalIgnores([
         "no-unused-vars": ["error", { argsIgnorePattern: "^_" }], // 未使用の変数を禁止(_は許可)
         "react/jsx-uses-vars": "error", // JSX内でも未使用の変数をエラーにする
         "react/prop-types": "off", // prop-typesをオフ
-        "eqeqeq": "error" // 厳密等価演算を強制
+        "eqeqeq": "error", // 厳密等価演算を強制
+        "no-else-return": ["error", { "allowElseIf": false }] // 不要なelseを禁止
     },
 }]);
